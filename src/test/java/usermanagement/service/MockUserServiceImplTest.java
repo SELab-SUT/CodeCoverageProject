@@ -63,6 +63,9 @@ public class MockUserServiceImplTest {
 
 	@Test(expected = UserNotFoundException.class)
 	public void findById_not_found_raiseException() {
+		doReturn(null).when(personDao).findOne( Matchers.any(Integer.class));
+		doReturn(user).when(transformer).toUserDomain(Matchers.any(Person.class));
+
 		testClass.findById_old(1);
 	}
 
