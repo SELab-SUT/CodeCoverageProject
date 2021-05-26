@@ -32,7 +32,7 @@ public class PersonTest {
 	}
 
 	@Test
-	public void test_setCompanyNmae() {
+	public void test_setCompanyName() {
 		final String companyName = "company";
 
 		person.setCompanyName(companyName);
