@@ -61,6 +61,11 @@ public class MockUserServiceImplTest {
 		 
 	}
 
+	@Test(expected = UserNotFoundException.class)
+	public void findById_not_found_raiseException() {
+		testClass.findById_old(1);
+	}
+
 	@Test
 	public void searchByCompanyName_found() {
 		List<Person> persons = new ArrayList<>();
