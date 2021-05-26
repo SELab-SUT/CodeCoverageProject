@@ -5,19 +5,46 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class PersonTest {
+	private Person person = new Person();
 
 	@Test
-	public void test_person_default_constructor() {
-		Person testClass = new Person();
-		
-		testClass.setmName("mName1");
-		assertEquals("mName1", testClass.getmName());
+	public void test_setfName() {
+		final String fName = "fName1";
 
-		testClass.setfName("fName1");
-		assertEquals("fName1", testClass.getfName());
+		person.setfName(fName);
+		assertEquals(fName, person.getfName());
+	}
 
-		testClass.setlName("lName1");
-		assertEquals("lName1", testClass.getlName());
+	@Test
+	public void test_setmName() {
+		final String mName = "mName1";
+
+		person.setmName(mName);
+		assertEquals(mName, person.getmName());
+	}
+
+	@Test
+	public void test_setlName() {
+		final String lName = "lName1";
+
+		person.setlName(lName);
+		assertEquals(lName, person.getlName());
+	}
+
+	@Test
+	public void test_setCompanyNmae() {
+		final String companyName = "company";
+
+		person.setCompanyName(companyName);
+		assertEquals(companyName, person.getCompanyName());
+	}
+
+	@Test
+	public void test_setPersonId() {
+		final int personId = 15;
+
+		person.setPersonId(personId);
+		assertEquals(personId, person.getPersonId());
 	}
 
 }
