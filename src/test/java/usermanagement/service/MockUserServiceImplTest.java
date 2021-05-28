@@ -1,8 +1,6 @@
 package usermanagement.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -61,12 +59,24 @@ public class MockUserServiceImplTest {
 		 
 	}
 
-	@Test(expected = UserNotFoundException.class)
+	@Test
 	public void findById_not_found_raiseException() {
+		final int FINDING_ID = 1;
 		doReturn(null).when(personDao).findOne( Matchers.any(Integer.class));
 		doReturn(user).when(transformer).toUserDomain(Matchers.any(Person.class));
 
-		testClass.findById_old(1);
+		try {
+			testClass.findById_old(FINDING_ID);
+			fail("UserNotFoundException not thrown");
+		}
+		catch (UserNotFoundException userNotFoundException)
+		{
+			assertEquals(Integer.valueOf(FINDING_ID), userNotFoundException.getUserId());
+		}
+		catch (Exception e)
+		{
+			fail("UserNotFoundException not thrown");
+		}
 	}
 
 	@Test
@@ -89,6 +99,19 @@ public class MockUserServiceImplTest {
 
 		List<User> users = testClass.searchByCompanyName(TEST_COMPANY);
 		assertTrue(users.isEmpty());
+	}
+
+	@Test
+	public void save_should_return_saved_user()
+	{
+		doReturn(person).when(transformer).toUserEntity(user);
+		doReturn(user).when(transformer).toUserDomain(person);
+		doReturn(person).when(personDao).save(person);
+
+		final User savedUser = testClass.save(user);
+		assertEquals(user, savedUser);
+		assertEquals(user.getFirstName(), savedUser.getFirstName());
+		assertEquals(user.getUserId(), savedUser.getUserId());
 	}
 
 	@Test
